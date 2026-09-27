@@ -1,5 +1,5 @@
 import React from "react";
-import WorkCard from "../WorkCard";
+import WorkCard from "../shared/WorkCard";
 
 const getWorkout = async () => {
   const response = await fetch(
@@ -33,7 +33,10 @@ const Workout = async () => {
         {/* Workout Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {workoutData?.map((item: any) => (
-            <WorkCard key={item.id} item={item} />
+            <WorkCard
+              key={item.id}
+              item={item}
+            />
           ))}
         </div>
       </div>

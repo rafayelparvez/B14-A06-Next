@@ -22,7 +22,6 @@ const Banner = () => {
               style={{ fontFamily: "var(--font-oswald)" }}
             >
               Train With Intent. Log
-              <br />
               Every Set.
             </h1>
 

@@ -5,15 +5,18 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "@/assets/logo.png";
+import WorkoutContext from "@/context/WorkoutContext";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  const { plan, saved, hydrated } = WorkoutContext();
+
   const isWorkoutsActive =
     pathname === "/" || pathname.startsWith("/workouts");
 
-  const isPlanActive = pathname.startsWith("/plan");
+  const isPlanActive = pathname.startsWith("/my-plan");
 
   const desktopLinkClass = (active: boolean) =>
     `flex items-center rounded-full px-5 py-2 text-[17.5px] font-normal uppercase leading-[35px] tracking-[0.5px] transition-colors ${
@@ -35,16 +38,16 @@ const Navbar = () => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_120px_at_20%_-20%,rgba(163,230,53,0.08),transparent)]" />
 
       {/* Navbar Container */}
-      <div className="container relative mx-auto flex h-16 items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr] md:px-6">
+      <div className="relative container mx-auto flex h-16 items-center justify-between px-5">
         {/* LEFT */}
-        <div className="flex items-center gap-2 justify-self-start md:gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           {/* Mobile Menu */}
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-[#E8EAEF] transition-all duration-200 hover:bg-white/10 hover:text-lime-400 md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-[#E8EAEF] hover:bg-white/10 hover:text-lime-400 md:hidden"
           >
             {isOpen ? (
               <svg
@@ -101,7 +104,8 @@ const Navbar = () => {
         </div>
 
         {/* CENTER MENU */}
-        <div className="hidden items-center gap-2 justify-self-center md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+          {/* Workouts */}
           <Link
             href="/"
             className={desktopLinkClass(isWorkoutsActive)}
@@ -110,8 +114,9 @@ const Navbar = () => {
             Workouts
           </Link>
 
+          {/* My Plan */}
           <Link
-            href="/plan"
+            href="../../my-plan"
             className={desktopLinkClass(isPlanActive)}
             style={{ fontFamily: "var(--font-oswald)" }}
           >
@@ -120,42 +125,42 @@ const Navbar = () => {
         </div>
 
         {/* RIGHT MENU */}
-        <div className="flex items-center gap-3 justify-self-end sm:gap-4 md:gap-6">
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+          {/* Plan → My Plan */}
           <Link
             href="/my-plan"
-            aria-label="Today's plan"
-            className="group flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-white/5 md:px-3"
+            className="group flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-white/5 md:px-3"
             style={{ fontFamily: "var(--font-oswald)" }}
           >
-            <span className="text-[15px] font-normal uppercase leading-[35px] tracking-[0.5px] text-[#E8EAEF] transition-colors group-hover:text-lime-400">
+            <span className="text-[15px] uppercase tracking-[0.5px] text-[#E8EAEF] group-hover:text-lime-400">
               Plan
             </span>
 
             <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-lime-400 px-1.5 text-xs font-bold text-black">
-              0
+              {hydrated ? plan.length : 0}
             </span>
           </Link>
 
+          {/* Saved → My Plan */}
           <Link
-            href="/saved"
-            aria-label="Saved workouts"
-            className="group flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-white/5 md:px-3"
+            href="/my-plan"
+            className="group flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-white/5 md:px-3"
             style={{ fontFamily: "var(--font-oswald)" }}
           >
-            <span className="text-[15px] font-normal uppercase leading-[35px] tracking-[0.5px] text-[#E8EAEF] transition-colors group-hover:text-lime-400">
+            <span className="text-[15px] uppercase tracking-[0.5px] text-[#E8EAEF] group-hover:text-lime-400">
               Saved
             </span>
 
-            <span className="flex h-6 min-w-6 items-center justify-center rounded-full border border-gray-500 px-1.5 text-xs font-bold text-gray-300 transition-all group-hover:border-lime-400 group-hover:text-lime-400">
-              0
+            <span className="flex h-6 min-w-6 items-center justify-center rounded-full border border-gray-500 px-1.5 text-xs font-bold text-gray-300 group-hover:border-lime-400 group-hover:text-lime-400">
+              {hydrated ? saved.length : 0}
             </span>
           </Link>
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="relative border-t border-white/10 px-4 pb-4 pt-3 md:hidden">
+        <div className="relative border-t border-white/10 px-5 pb-4 pt-3 md:hidden">
           <div className="container mx-auto flex flex-col gap-1 rounded-2xl bg-white/5 p-2">
             <Link
               href="/"
@@ -167,7 +172,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/plan"
+              href="/my-plan"
               onClick={() => setIsOpen(false)}
               className={mobileLinkClass(isPlanActive)}
               style={{ fontFamily: "var(--font-oswald)" }}
