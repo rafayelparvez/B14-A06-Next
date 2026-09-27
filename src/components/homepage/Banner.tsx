@@ -9,7 +9,6 @@ const Banner = () => {
     <section className="w-full bg-[#0C0D10] px-6 py-6">
       <div className="container mx-auto overflow-hidden rounded-3xl bg-[#181A1F] px-8 py-10 md:px-14 lg:py-14">
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2">
-
           {/* Left Content */}
           <div>
             <p
@@ -27,8 +26,7 @@ const Banner = () => {
                 fontFamily: "var(--font-oswald)",
               }}
             >
-              Train With Intent. Log
-              Every Set.
+              Train With Intent. Log Every Set.
             </h1>
 
             <p
@@ -37,9 +35,8 @@ const Banner = () => {
                 fontFamily: "var(--font-inter)",
               }}
             >
-              FitLog is a dark, no-nonsense gym companion:
-              pick a lift, lock it into today&apos;s plan,
-              and watch the week&apos;s work add up.
+              FitLog is a dark, no-nonsense gym companion: pick a lift, lock it
+              into today&apos;s plan, and watch the week&apos;s work add up.
             </p>
 
             {/* Browse Workouts */}
@@ -57,7 +54,6 @@ const Banner = () => {
               priority
             />
           </div>
-
         </div>
       </div>
     </section>
