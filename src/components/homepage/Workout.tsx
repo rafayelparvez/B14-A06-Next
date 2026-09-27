@@ -2,9 +2,7 @@ import React from "react";
 import WorkCard from "../shared/WorkCard";
 
 const getWorkout = async () => {
-  const response = await fetch(
-    "https://api.abcz.workers.dev/api/fitlog"
-  );
+  const response = await fetch("https://api.abcz.workers.dev/api/fitlog");
 
   if (!response.ok) {
     throw new Error("Failed to fetch workout data");
@@ -17,9 +15,9 @@ const Workout = async () => {
   const workoutData = await getWorkout();
 
   return (
-    <section className="w-full bg-[#0C0D10] px-5 py-10">
+    <section id="workouts" className="w-full bg-[#0C0D10] px-5 py-10">
       <div className="container mx-auto">
-        {/* Header */}
+        {/* Section Header */}
         <div className="mb-8">
           <h2 className="text-3xl font-extrabold uppercase tracking-wide text-white">
             The Library
@@ -30,13 +28,10 @@ const Workout = async () => {
           </p>
         </div>
 
-        {/* Workout Grid */}
+        {/* Workout Cards */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {workoutData?.map((item: any) => (
-            <WorkCard
-              key={item.id}
-              item={item}
-            />
+            <WorkCard key={item.id} item={item} />
           ))}
         </div>
       </div>
