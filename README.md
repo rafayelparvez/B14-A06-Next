@@ -1,36 +1,167 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏋️ FitLog
 
-## Getting Started
+A modern and responsive workout library built with **Next.js, React, and Tailwind CSS**.
 
-First, run the development server:
+FitLog helps users explore workouts, view exercise details, save workouts for later, and build a personalized daily workout plan.
+
+---
+
+## 🚀 Live Demo
+
+**Live Demo:** Add your deployed project URL here
+
+---
+
+## ✨ Key Features
+
+* 🏋️ **Workout Library** — Browse workouts with muscle groups, equipment, duration, calories, and ratings.
+* 📋 **Workout Details** — View detailed workout information and exercise instructions.
+* 🎯 **Today's Plan** — Build a daily workout plan with a maximum of 5 exercises.
+* 🔖 **Save for Later** — Save workouts and access them anytime from the Saved section.
+* 📊 **Plan Management** — Track exercises, total minutes, calories, remove workouts, and sort by duration, calories, rating, or name.
+* 🔔 **Toast Notifications** — Get instant feedback when adding, saving, or removing workouts.
+* 📱 **Responsive Design** — Works smoothly across desktop, tablet, and mobile devices.
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology             | Purpose                                |
+| ---------------------- | -------------------------------------- |
+| **Next.js**            | Build the UI and application           |
+| **Next.js App Router** | Handle routing and page navigation     |
+| **React**              | Build reusable UI components           |
+| **Tailwind CSS**       | Styling and responsive design          |
+| **React Context API**  | Manage workout plan and saved workouts |
+| **React Toastify**     | User notifications                     |
+| **REST API**           | Fetch workout data                     |
+
+---
+
+## 📂 Main Pages
+
+### 🏠 Home
+
+* Hero section
+* Workout library
+* Workout cards
+* Quick access to workout details
+
+### 💪 Workout Details
+
+* Workout image
+* Muscle groups
+* Equipment
+* Duration
+* Calories
+* Rating
+* Instructions
+* Add to Plan
+* Save for Later
+
+### 📋 My Plan
+
+* Today's workout plan
+* Saved workouts
+* Exercise count
+* Total duration
+* Total calories
+* Sorting options
+* Remove workouts
+
+---
+
+## ⚙️ Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+```
+
+### 2. Go to the project directory
+
+```bash
+cd fitlog
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📡 API
 
-To learn more about Next.js, take a look at the following resources:
+FitLog uses a REST API to load workout data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+https://api.abcz.workers.dev/api/fitlog
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 💾 Data Persistence
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+FitLog uses **Local Storage** to keep:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Today's workout plan
+* Saved workouts
+
+This means the user's selected workouts remain available after refreshing the page.
+
+---
+
+## 📱 Responsive Design
+
+The interface is designed to work across:
+
+* 📱 Mobile
+* 📲 Tablet
+* 💻 Desktop
+
+---
+
+## 🎯 Project Purpose
+
+This project was built as a learning project to practice:
+
+* Next.js App Router
+* React components
+* Client and server components
+* React Context API
+* Tailwind CSS
+* API data fetching
+* Dynamic routes
+* Local Storage
+* Responsive UI design
+
+---
+
+## 👨‍💻 Author
+
+**Parvez Mosharaf**
+
+Frontend Developer & WordPress Expert
+
+* GitHub: https://github.com/rafayelparvez
+
+---
+
+## ⭐ If you like this project
+
+Give the repository a ⭐ on GitHub!
