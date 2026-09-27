@@ -4,7 +4,6 @@ import React, {
   useMemo,
   useState,
 } from "react";
-
 import Link from "next/link";
 
 import PlanCard from "@/components/shared/PlanCard";
@@ -36,11 +35,13 @@ const MyPlan = () => {
   const [sortKey, setSortKey] =
     useState<SortKey>("duration");
 
+  // Active list changes when tab changes
   const activeList =
     tab === "plan"
       ? plan
       : saved;
 
+  // Sort active list
   const sortedList = useMemo(() => {
     const list = [...activeList];
 
@@ -64,8 +65,9 @@ const MyPlan = () => {
     return list;
   }, [activeList, sortKey]);
 
+  // Stats change according to active tab
   const totals = useMemo(() => {
-    return plan.reduce(
+    return activeList.reduce(
       (acc, item) => {
         acc.exercises += 1;
 
@@ -83,7 +85,7 @@ const MyPlan = () => {
         calories: 0,
       }
     );
-  }, [plan]);
+  }, [activeList]);
 
   return (
     <section className="min-h-screen w-full bg-[#0C0D10] px-5 py-10">
@@ -102,6 +104,7 @@ const MyPlan = () => {
         {/* Stats */}
         <div className="mt-6 grid grid-cols-3 divide-x divide-white/10 rounded-2xl border border-white/10 bg-[#15171C]">
 
+          {/* Exercises */}
           <div className="px-3 py-5 sm:px-6">
             <p className="text-xs text-gray-400">
               Exercises
@@ -112,6 +115,7 @@ const MyPlan = () => {
             </p>
           </div>
 
+          {/* Minutes */}
           <div className="px-3 py-5 sm:px-6">
             <p className="text-xs text-gray-400">
               Minutes
@@ -122,6 +126,7 @@ const MyPlan = () => {
             </p>
           </div>
 
+          {/* Calories */}
           <div className="px-3 py-5 sm:px-6">
             <p className="text-xs text-gray-400">
               Calories
@@ -140,6 +145,7 @@ const MyPlan = () => {
           {/* Tabs */}
           <div className="flex items-center gap-1 rounded-full bg-white/5 p-1">
 
+            {/* Today's Plan */}
             <button
               type="button"
               onClick={() =>
@@ -154,6 +160,7 @@ const MyPlan = () => {
               Today&apos;s Plan
             </button>
 
+            {/* Saved */}
             <button
               type="button"
               onClick={() =>
@@ -214,6 +221,7 @@ const MyPlan = () => {
         {/* Workout List */}
         <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-[#15171C]">
 
+          {/* Loading */}
           {!hydrated ? (
             <div className="px-6 py-16 text-center">
               <p className="text-sm text-gray-400">
@@ -221,6 +229,8 @@ const MyPlan = () => {
               </p>
             </div>
           ) : sortedList.length === 0 ? (
+
+            /* Empty State */
             <div className="px-6 py-16 text-center">
 
               <h3 className="text-lg font-bold uppercase text-white">
@@ -243,16 +253,19 @@ const MyPlan = () => {
               </Link>
 
             </div>
+
           ) : (
+
+            /* Workout Cards */
             sortedList.map((item) => (
               <PlanCard
                 key={item.id}
                 item={item}
 
-                // Both Plan and Saved have Remove button
+                // Remove button for both tabs
                 showRemove={true}
 
-                // Remove from correct list
+                // Remove from the correct list
                 onRemove={
                   tab === "plan"
                     ? removeFromPlan
@@ -260,6 +273,7 @@ const MyPlan = () => {
                 }
               />
             ))
+
           )}
 
         </div>
@@ -279,4 +293,3 @@ const MyPlan = () => {
 };
 
 export default MyPlan;
-
