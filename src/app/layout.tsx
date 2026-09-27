@@ -5,6 +5,7 @@ import "./globals.css";
 
 import Navbar from "@/components/shared/Navbar";
 import { PlanProvider } from "@/context/WorkoutContext";
+import Footer from "@/components/shared/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
         <PlanProvider>
           <Navbar />
           {children}
+          <Footer/>
         </PlanProvider>
       </body>
     </html>
