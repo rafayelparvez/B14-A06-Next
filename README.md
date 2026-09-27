@@ -8,7 +8,7 @@ FitLog helps users explore workouts, view exercise details, save workouts for la
 
 ## 🚀 Live Demo
 
-**Live Demo:** Add your deployed project URL here
+**Live Demo:** https://b14-a06-next-two.vercel.app/
 
 ---
 
