@@ -4,8 +4,9 @@ import { Geist, Geist_Mono, Inter, Oswald } from "next/font/google";
 import "./globals.css";
 
 import Navbar from "@/components/shared/Navbar";
-import { PlanProvider } from "@/context/WorkoutContext";
 import Footer from "@/components/shared/Footer";
+import { PlanProvider } from "@/context/WorkoutContext";
+import { FitlogToastContainer } from "@/components/ui/toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,9 +33,7 @@ export const metadata: Metadata = {
   description: "Workout tracking app",
 };
 
-export default function RootLayout({
-  children,
-}: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
@@ -43,8 +42,12 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans antialiased">
         <PlanProvider>
           <Navbar />
+
           {children}
-          <Footer/>
+
+          <Footer />
+
+          <FitlogToastContainer />
         </PlanProvider>
       </body>
     </html>

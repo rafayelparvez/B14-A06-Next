@@ -2,9 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import WorkoutContext, {
-  type PlanItem,
-} from "@/context/WorkoutContext";
+
+import WorkoutContext, { type PlanItem } from "@/context/WorkoutContext";
+
+import {
+  notifyAddedToPlan,
+  notifySaved,
+  notifyAlreadyInPlan,
+  notifyPlanFull,
+} from "@/components/ui/toast";
 
 type Workout = {
   id: number | string;
@@ -24,22 +30,12 @@ type WorkoutDetailProps = {
 };
 
 const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
-  const {
-    plan,
-    saved,
-    addToPlan,
-    toggleSaved,
-    isPlanFull,
-    hydrated,
-  } = WorkoutContext();
+  const { plan, saved, addToPlan, toggleSaved, isPlanFull, hydrated } =
+    WorkoutContext();
 
-  const isInPlan = plan.some(
-    (item) => item.id === workout.id
-  );
+  const isInPlan = plan.some((item) => item.id === workout.id);
 
-  const isSaved = saved.some(
-    (item) => item.id === workout.id
-  );
+  const isSaved = saved.some((item) => item.id === workout.id);
 
   const planItem: PlanItem = {
     id: workout.id,
@@ -53,15 +49,27 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
   };
 
   const handleAddToPlan = () => {
-    if (!hydrated || isInPlan || isPlanFull) return;
+    if (!hydrated) return;
+
+    if (isInPlan) {
+      notifyAlreadyInPlan();
+      return;
+    }
+
+    if (isPlanFull) {
+      notifyPlanFull();
+      return;
+    }
 
     addToPlan(planItem);
+    notifyAddedToPlan();
   };
 
   const handleSave = () => {
     if (!hydrated) return;
 
     toggleSaved(planItem);
+    notifySaved();
   };
 
   return (
@@ -118,9 +126,7 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
                   Equipment
                 </span>
 
-                <span className="text-sm text-white">
-                  {workout.equipment}
-                </span>
+                <span className="text-sm text-white">{workout.equipment}</span>
               </div>
 
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
@@ -148,54 +154,46 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
                   Rating
                 </span>
 
-                <span className="text-sm text-white">
-                  ★ {workout.rating}
-                </span>
+                <span className="text-sm text-white">★ {workout.rating}</span>
               </div>
             </div>
 
             {/* Instructions */}
-            {workout.instructions &&
-              workout.instructions.length > 0 && (
-                <div className="mt-7">
-                  <h2
-                    className="text-2xl font-normal uppercase tracking-wide text-white"
-                    style={{
-                      fontFamily: "var(--font-oswald)",
-                    }}
-                  >
-                    Instructions
-                  </h2>
+            {workout.instructions && workout.instructions.length > 0 && (
+              <div className="mt-7">
+                <h2
+                  className="text-2xl font-normal uppercase tracking-wide text-white"
+                  style={{
+                    fontFamily: "var(--font-oswald)",
+                  }}
+                >
+                  Instructions
+                </h2>
 
-                  <ol className="mt-4 flex flex-col gap-3">
-                    {workout.instructions.map(
-                      (step, index) => (
-                        <li
-                          key={index}
-                          className="flex gap-3 text-sm leading-relaxed text-gray-300"
-                        >
-                          <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lime-400 text-xs font-bold text-black">
-                            {index + 1}
-                          </span>
+                <ol className="mt-4 flex flex-col gap-3">
+                  {workout.instructions.map((step, index) => (
+                    <li
+                      key={index}
+                      className="flex gap-3 text-sm leading-relaxed text-gray-300"
+                    >
+                      <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-lime-400 text-xs font-bold text-black">
+                        {index + 1}
+                      </span>
 
-                          <span>{step}</span>
-                        </li>
-                      )
-                    )}
-                  </ol>
-                </div>
-              )}
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
 
             {/* Actions */}
             <div className="mt-8 flex flex-wrap gap-3">
+              {/* Add to Plan */}
               <button
                 type="button"
                 onClick={handleAddToPlan}
-                disabled={
-                  !hydrated ||
-                  isInPlan ||
-                  isPlanFull
-                }
+                disabled={!hydrated || isInPlan || isPlanFull}
                 className={`rounded-full px-6 py-3 text-sm font-bold transition ${
                   isInPlan
                     ? "cursor-not-allowed bg-white/10 text-gray-400"
@@ -211,6 +209,7 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
                     : "Add to Today's Plan"}
               </button>
 
+              {/* Save */}
               <button
                 type="button"
                 onClick={handleSave}
@@ -221,9 +220,7 @@ const WorkoutDetail = ({ workout }: WorkoutDetailProps) => {
                     : "border-white/20 text-white hover:border-lime-400 hover:text-lime-400"
                 }`}
               >
-                {isSaved
-                  ? "Saved"
-                  : "Save for Later"}
+                {isSaved ? "Saved" : "Save for Later"}
               </button>
             </div>
 
