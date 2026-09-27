@@ -13,8 +13,7 @@ const Navbar = () => {
 
   const { plan, saved, hydrated } = WorkoutContext();
 
-  const isWorkoutsActive =
-    pathname === "/" || pathname.startsWith("/workouts");
+  const isWorkoutsActive = pathname === "/" || pathname.startsWith("/workouts");
 
   const isPlanActive = pathname.startsWith("/my-plan");
 
@@ -27,13 +26,11 @@ const Navbar = () => {
 
   const mobileLinkClass = (active: boolean) =>
     `rounded-xl px-4 py-3 text-base font-normal uppercase tracking-[0.5px] transition-colors ${
-      active
-        ? "bg-white/10 text-white"
-        : "text-[#E8EAEF] hover:bg-white/10"
+      active ? "bg-white/10 text-white" : "text-[#E8EAEF] hover:bg-white/10"
     }`;
 
   return (
-    <nav className="relative w-full overflow-hidden border-b border-white/10 bg-[#0C0D10]">
+    <nav className="sticky top-0 z-50 w-full overflow-hidden border-b border-white/10 bg-[#0C0D10]">
       {/* Subtle Glow */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_120px_at_20%_-20%,rgba(163,230,53,0.08),transparent)]" />
 
@@ -96,7 +93,9 @@ const Navbar = () => {
 
             <span
               className="text-[22px] font-normal uppercase leading-[35px] tracking-[0.5px] text-[#E8EAEF] md:text-[25px]"
-              style={{ fontFamily: "var(--font-oswald)" }}
+              style={{
+                fontFamily: "var(--font-oswald)",
+              }}
             >
               Fitlog
             </span>
@@ -109,16 +108,20 @@ const Navbar = () => {
           <Link
             href="/"
             className={desktopLinkClass(isWorkoutsActive)}
-            style={{ fontFamily: "var(--font-oswald)" }}
+            style={{
+              fontFamily: "var(--font-oswald)",
+            }}
           >
             Workouts
           </Link>
 
           {/* My Plan */}
           <Link
-            href="../../my-plan"
+            href="/my-plan"
             className={desktopLinkClass(isPlanActive)}
-            style={{ fontFamily: "var(--font-oswald)" }}
+            style={{
+              fontFamily: "var(--font-oswald)",
+            }}
           >
             My Plan
           </Link>
@@ -130,7 +133,9 @@ const Navbar = () => {
           <Link
             href="/my-plan"
             className="group flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-white/5 md:px-3"
-            style={{ fontFamily: "var(--font-oswald)" }}
+            style={{
+              fontFamily: "var(--font-oswald)",
+            }}
           >
             <span className="text-[15px] uppercase tracking-[0.5px] text-[#E8EAEF] group-hover:text-lime-400">
               Plan
@@ -145,7 +150,9 @@ const Navbar = () => {
           <Link
             href="/my-plan"
             className="group flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-white/5 md:px-3"
-            style={{ fontFamily: "var(--font-oswald)" }}
+            style={{
+              fontFamily: "var(--font-oswald)",
+            }}
           >
             <span className="text-[15px] uppercase tracking-[0.5px] text-[#E8EAEF] group-hover:text-lime-400">
               Saved
@@ -166,7 +173,9 @@ const Navbar = () => {
               href="/"
               onClick={() => setIsOpen(false)}
               className={mobileLinkClass(isWorkoutsActive)}
-              style={{ fontFamily: "var(--font-oswald)" }}
+              style={{
+                fontFamily: "var(--font-oswald)",
+              }}
             >
               Workouts
             </Link>
@@ -175,7 +184,9 @@ const Navbar = () => {
               href="/my-plan"
               onClick={() => setIsOpen(false)}
               className={mobileLinkClass(isPlanActive)}
-              style={{ fontFamily: "var(--font-oswald)" }}
+              style={{
+                fontFamily: "var(--font-oswald)",
+              }}
             >
               My Plan
             </Link>
